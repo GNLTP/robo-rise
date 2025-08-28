@@ -1,0 +1,141 @@
+<mujoco model="panda scene">
+  <include file="panda.xml"/>
+
+  <statistic center="0.3 0 0.4" extent="1"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <asset>
+<!--    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>-->
+<!--    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"-->
+<!--      markrgb="0.8 0.8 0.8" width="300" height="300"/>-->
+<!--    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>-->
+    <!-- floor -->
+    <texture name="plane" type="2d" builtin="checker" rgb1=".1 .1 .1" rgb2=".1 .1 .1"
+    width="512" height="512" mark="cross" markrgb=".8 .8 .8" />
+    <material name="plane" reflectance="0.3" texture="plane" texrepeat="1 1" texuniform="true"/>
+
+    <!-- sky -->
+    <texture type="skybox" file="desert.png" gridsize="3 4" gridlayout=".U..LFRB.D.." />
+
+    <!--  box  -->
+    <material name="table_gray" rgba="0.7 0.7 0.7 1" emission="0" />
+    <material name="box_red" rgba="1 0 0 1" emission="0" />
+    <material name="box_blue" rgba="0 0 1 1" emission="0" />
+    <material name="box_green" rgba="0 1 0 1" emission="0" />
+  </asset>
+
+  <worldbody>
+<!--    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>-->
+<!--    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>-->
+<!--    &lt;!&ndash; 添加长方体 &ndash;&gt;-->
+<!--    <body name="cube" pos="0.75 0 0.05">-->
+<!--      <freejoint/>-->
+<!--      <geom type="box" size="0.05 0.02 0.06" rgba="1 0 0 1" mass="0.01" friction="3.0 2.0 0.003"/>-->
+<!--    </body>-->
+
+<!--    <light name="top" pos="0 0 2" mode="trackcom"/>-->
+    <geom name="floor" pos="0 0 0" size="10 10 .1" type="plane" material="plane" condim="3" />
+
+    <body name="table" pos="0.65 0 0.05">
+        <geom name="table_geom"
+              type="box"
+              size="0.5 0.5 0.05"
+              material="table_gray"
+              density="10000"
+              contype="1"
+              conaffinity="1"
+              friction="1.0 0.2 0.005"
+              solimp="0.9 0.95 0.01"
+              solref="0.005 1"/>
+    </body>
+
+     <!-- 红色方块 -->
+    <body name="red_block" pos="0.45 0.1 0.13">
+        <freejoint/>
+        <inertial pos="0 0 0" mass="0.3" diaginertia="0.0005 0.0005 0.0005"/>
+        <geom name="red_block_geom"
+              type="box"
+              size="0.02 0.02 0.02"
+              material="box_red"
+              contype="1"
+              conaffinity="1"
+              friction="1.0 0.2 0.005"
+              solimp="0.9 0.95 0.01"
+              solref="0.005 1"/>
+    </body>
+
+    <!-- 绿色方块 -->
+    <body name="green_block" pos="0.65 -0.1 0.13">
+        <freejoint/>
+        <inertial pos="0 0 0" mass="0.3" diaginertia="0.0005 0.0005 0.0005"/>
+        <geom name="green_block_geom"
+              type="box"
+              size="0.02 0.02 0.02"
+              material="box_green"
+              contype="1"
+              conaffinity="1"
+              friction="1.0 0.2 0.005"
+              solimp="0.9 0.95 0.01"
+              solref="0.005 1"/>
+    </body>
+
+    <!-- 蓝色方块 -->
+    <body name="blue_block" pos="0.55 0.0 0.13">
+        <freejoint/>
+        <inertial pos="0 0 0" mass="0.3" diaginertia="0.0005 0.0005 0.0005"/>
+        <geom name="blue_block_geom"
+              type="box"
+              size="0.02 0.02 0.02"
+              material="box_blue"
+              contype="1"
+              conaffinity="1"
+              friction="1.0 0.2 0.005"
+              solimp="0.9 0.95 0.01"
+              solref="0.005 1"/>
+    </body>
+
+
+<!--    <body name="table" pos="0.65 0 0.05">-->
+<!--        <geom type="box" size="0.5 0.5 0.05" material="table_gray" density="10000"/>-->
+<!--    </body> &lt;!&ndash; 将平台沿x轴稍微移远，避免初始碰撞 &ndash;&gt;-->
+<!--    &lt;!&ndash; 添加红色方块（可运动，初始无碰撞） &ndash;&gt;-->
+<!--    <body name="red_block" pos="0.45 0.1 0.13">-->
+<!--    &lt;!&ndash;    ree joint 会让某个 body 占用 7 个 qpos 元素    &ndash;&gt;-->
+<!--        <freejoint/>-->
+<!--        <geom type="box" size="0.02 0.02 0.02" material="box_red" mass="0.1"-->
+<!--              contype="1" conaffinity="1"/>-->
+<!--    </body>-->
+<!--    &lt;!&ndash; 添加绿色方块 &ndash;&gt;-->
+<!--    <body name="green_block" pos="0.65 -0.1 0.13">-->
+<!--        <freejoint/>-->
+<!--        <geom type="box" size="0.02 0.02 0.02" material="box_green" mass="0.1"-->
+<!--              contype="1" conaffinity="1"/>-->
+<!--    </body>-->
+
+<!--    &lt;!&ndash; 添加蓝色方块 &ndash;&gt;-->
+<!--    <body name="blue_block" pos="0.55 0.0 0.13">-->
+<!--        <freejoint/>-->
+<!--        <geom type="box" size="0.02 0.02 0.02" material="box_blue" mass="0.1"-->
+<!--              contype="1" conaffinity="1"/>-->
+<!--    </body>-->
+
+
+<!--    &lt;!&ndash; 在平台中心上方添加摄像机 euler - rad&ndash;&gt;-->
+<!--    <body name="top_box" pos="0.7 0 0.90" euler="0 0 1.57">-->
+<!--        <geom type="box" size="0.02 0.02 0.01" rgba="0.5 0.5 0.5 1" contype="0" conaffinity="0"/>-->
+<!--        <camera name="top_cam" pos="0 0 0" euler="0 0 0" mode="fixed" fovy="60" resolution="640 480"/>-->
+<!--    </body>-->
+
+<!--    &lt;!&ndash; 在平台中心前方添加摄像机 euler - rad&ndash;&gt;-->
+<!--    <body name="front_box" pos="1.45 0 0.60" euler="0 0.785 1.57">-->
+<!--        <geom type="box" size="0.02 0.02 0.01" rgba="0.5 0.5 0.5 1" contype="0" conaffinity="0"/>-->
+<!--        <camera name="front_cam" pos="0 0 0" euler="0 0 0" mode="fixed" fovy="60" resolution="640 480"/>-->
+<!--    </body>-->
+
+  </worldbody>
+</mujoco>

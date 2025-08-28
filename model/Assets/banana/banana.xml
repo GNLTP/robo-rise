@@ -1,0 +1,45 @@
+<mujoco model="banana" version="2.2">
+  <compiler meshdir="meshes" angle="degree" eulerseq="XYZ"/>
+  <asset>
+    <mesh name="banana_mesh" file="textured.obj"/>
+
+    <texture name="banana_tex" type="2d" builtin="flat"
+             rgb1="0.94 0.78 0.16" rgb2="0.94 0.78 0.16"
+             width="512" height="512"/>
+
+    <material name="banana_mat" texture="banana_tex"
+              specular="0.3" shininess="0.1"
+              reflectance="0.1"/>
+<!--      <texture name="banana_tex" type="2d" file="texture_map.png"/>-->
+
+  </asset>
+  <worldbody>
+    <body>
+      <body name="object">
+
+          <geom type="mesh"
+                mesh="banana_mesh"
+                material="banana_mat"
+                pos="0 0 0"
+                contype="0"
+                conaffinity="0"
+                group="1" />
+
+          <geom type="box"
+                size="0.01 0.07 0.012"
+                pos="-0.015 0.016 0.01"
+                rgba="0 0 0 0"
+                density="800"
+                friction="2.0 0.6 0.1"
+                contype="1"
+                conaffinity="1"
+                group="0"
+                axisangle="0 0 1 100"/>
+
+      </body>
+      <site name="bottom_site" pos="0 0 -0.05" size="0.005" rgba="0 0 0 0"/>
+      <site name="top_site" pos="0 0 0.05" size="0.005" rgba="0 0 0 0"/>
+      <site name="horizontal_radius_site" pos="0.08 0 0" size="0.005" rgba="0 0 0 0"/>
+    </body>
+  </worldbody>
+</mujoco>
