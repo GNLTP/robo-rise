@@ -82,7 +82,6 @@ project_root/
 └─ command_train.sh
 ```
 ---
----
 ## 5. Upstream & License
 
 本项目基于 **RISE** 进行二次开发（IROS 2024）：
