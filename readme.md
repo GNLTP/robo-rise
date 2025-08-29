@@ -86,8 +86,7 @@ project_root/
 
 本项目基于 **RISE** 进行二次开发（IROS 2024）：
 - Upstream: https://github.com/rise-policy/RISE
-- 上游许可：CC BY-NC-SA 4.0（署名-非商业-相同方式共享）
-  - 这意味着：仅限**非商业**用途；分发衍生作品需**采用相同许可**；需保留原作者署名与许可信息。
+- 上游许可：CC BY-NC-SA 4.0
 - 本仓库中直接来源或修改自 RISE 的代码与配置，遵循 CC BY-NC-SA 4.0；其余自研部分亦以兼容方式发布（如无特殊声明，默认同上游）。
 
 ### Acknowledgements
